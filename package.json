@@ -4,7 +4,7 @@
   "description": "webpack template",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/vanholme/WebpackTemplate/issues"
   },
-  "homepage": "https://github.com/vanholme/WebpackTemplate#readme"
+  "homepage": "https://github.com/vanholme/WebpackTemplate#readme",
+  "devDependencies": {
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  }
 }
