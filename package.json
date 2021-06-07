@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/vanholme/WebpackTemplate#readme",
   "devDependencies": {
-    "webpack": "^5.38.1",
+    "html-webpack-plugin": "^5.3.1",
+    "webpack": "^5.37.0",
     "webpack-cli": "^4.7.0"
   }
 }
