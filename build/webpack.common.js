@@ -1,18 +1,12 @@
-const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const PATHS = {
-    src: path.join(__dirname, '/src'),
-    dist: path.join(__dirname, '/dist'),
-    assets: 'assets/'
-}
+const paths = require('./paths')
 
 module.exports = {
     entry: {
-        index: PATHS.src + '\\index.js'
+        index: paths.src + '\\index.js'
     },
     output: {
-        path: PATHS.dist,
+        path: paths.dist,
         filename: '[name].js' 
     },
     optimization: {
@@ -24,7 +18,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: PATHS.src + '\\template.html', 
+            template: paths.src + '\\template.html', 
             filename: 'index.html', // название выходного файла
             inject: 'body'
         }),
