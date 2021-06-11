@@ -1,4 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const paths = require('./paths')
 
 module.exports = {
@@ -17,10 +19,22 @@ module.exports = {
         }
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: paths.src + '\\template.html', 
             filename: 'index.html', // название выходного файла
             inject: 'body'
         }),
+        new MiniCSSExtractPlugin({
+            filename: `${paths.assets}css/[name].css`
+        }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.(scss|css)$/,
+                use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+            },
+        ],
+    },
 }

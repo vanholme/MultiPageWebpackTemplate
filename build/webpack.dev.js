@@ -12,7 +12,6 @@ module.exports = merge(common, {
         liveReload: true,
         port: 8080
     },
-
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
