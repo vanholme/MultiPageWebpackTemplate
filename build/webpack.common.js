@@ -8,8 +8,8 @@ module.exports = {
         index: paths.src + '\\index.js'
     },
     output: {
+        filename: `${paths.assets}js/[name].js`,
         path: paths.dist,
-        filename: '[name].js' 
     },
     optimization: {
         splitChunks: {
@@ -18,17 +18,6 @@ module.exports = {
             minChunks: 2
         }
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: paths.src + '\\template.html', 
-            filename: 'index.html', // название выходного файла
-            inject: 'body'
-        }),
-        new MiniCSSExtractPlugin({
-            filename: `${paths.assets}css/[name].css`
-        }),
-    ],
     module: {
         rules: [
             {
@@ -48,6 +37,21 @@ module.exports = {
                 test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
                 type: 'asset/inline',
             },
+            {
+                test: /\.pug$/,
+                loader: 'pug-loader'
+            }
         ],
     },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: paths.src + '\\pug\\page.pug', 
+            filename: 'index.html', // название выходного файла
+            inject: 'body'
+        }),
+        new MiniCSSExtractPlugin({
+            filename: `${paths.assets}css/[name].css`
+        }),
+    ],
 }

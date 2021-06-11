@@ -6,13 +6,14 @@ const paths = require('./paths')
 
 module.exports = merge(common, {
     mode: 'development',
+    target: 'web',
     devServer: {
         contentBase: paths.dist,
         open: true,
-        liveReload: true,
+        hot: true,
         port: 8080
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
-    ],
+    ]
 })
