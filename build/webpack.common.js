@@ -1,11 +1,22 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const fs = require('fs')
 const paths = require('./paths')
+const path = require('path')
+
+const pages_dir = `${paths.src}/pages`
+const pages_dirs = fs.readdirSync(pages_dir).filter(filename => filename.endsWith(''))
+
+const component_dir = `${paths.src}/components`
+const component_dirs = fs.readdirSync(component_dir).filter(filename => filename.endsWith(''))
 
 module.exports = {
     entry: {
-        index: paths.src + '\\index.js'
+        headersAndFooters: paths.src + '\\headersAndFooters.js',
+        somePage: paths.src + '\\somePage.js'
     },
     output: {
         filename: `${paths.assets}js/[name].js`,
@@ -45,11 +56,24 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: paths.src + '\\pug\\page.pug', 
-            filename: 'index.html', // название выходного файла
+        ...component_dirs.map(dir => new CopyWebpackPlugin({ 
+            patterns: [
+                { from: `${paths.src}/components/${dir}/img`, to: `${paths.dist}/assets/img`},
+                { from: `${paths.src}/components/${dir}/fonts`, to: `${paths.dist}/assets/fonts`}
+            ]}
+        )),
+        ...pages_dirs.map(dir => new CopyWebpackPlugin({
+            patterns: [
+                { from: `${paths.src}/pages/${dir}/img`, to: `${paths.dist}/assets/img`},
+                { from: `${paths.src}/pages/${dir}/fonts`, to: `${paths.dist}/assets/fonts`},
+            ]}
+        )),
+        ...pages_dirs.map(dir => new HtmlWebpackPlugin({
+            template: `${pages_dir}/${dir}/${dir}.pug`,
+            filename: `${dir}.html`,
+            chunks: [`${dir}`],
             inject: 'body'
-        }),
+        })),
         new MiniCSSExtractPlugin({
             filename: `${paths.assets}css/[name].css`
         }),
