@@ -20,7 +20,7 @@ module.exports = {
     },
     output: {
         filename: `${paths.assets}js/[name].js`,
-        path: paths.dist,
+        path: paths.dist
     },
     optimization: {
         splitChunks: {

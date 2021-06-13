@@ -11,7 +11,9 @@ module.exports = merge(common, {
         contentBase: paths.dist,
         open: true,
         hot: true,
-        port: 8080
+        port: 8080,
+        writeToDisk: true,
+        serveIndex: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
