@@ -58,16 +58,22 @@ module.exports = {
         new CleanWebpackPlugin(),
         ...component_dirs.map(dir => new CopyWebpackPlugin({ 
             patterns: [
-                { from: `${paths.src}/components/${dir}/img`, to: `${paths.dist}/assets/img`},
-                { from: `${paths.src}/components/${dir}/fonts`, to: `${paths.dist}/assets/fonts`}
+                { from: `${paths.src}/components/${dir}/img`, to: `${paths.dist}/assets/img`, noErrorOnMissing: true,},
+                { from: `${paths.src}/components/${dir}/fonts`, to: `${paths.dist}/assets/fonts`, noErrorOnMissing: true,}
             ]}
         )),
         ...pages_dirs.map(dir => new CopyWebpackPlugin({
             patterns: [
-                { from: `${paths.src}/pages/${dir}/img`, to: `${paths.dist}/assets/img`},
-                { from: `${paths.src}/pages/${dir}/fonts`, to: `${paths.dist}/assets/fonts`},
+                { from: `${paths.src}/pages/${dir}/img`, to: `${paths.dist}/assets/img`, noErrorOnMissing: true,},
+                { from: `${paths.src}/pages/${dir}/fonts`, to: `${paths.dist}/assets/fonts`, noErrorOnMissing: true,},
             ]}
         )),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: `${paths.src}/img`, to: `${paths.dist}/assets/img`, noErrorOnMissing: true,},
+                { from: `${paths.src}/fonts`, to: `${paths.dist}/assets/fonts`, noErrorOnMissing: true,},
+            ]}
+        ),
         ...pages_dirs.map(dir => new HtmlWebpackPlugin({
             template: `${pages_dir}/${dir}/${dir}.pug`,
             filename: `${dir}.html`,
